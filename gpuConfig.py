@@ -35,10 +35,10 @@ for i in idAudio:
     os.system('sudo echo \'\npassthrough_whitelist = {"vendor_id": "10de", "product_id": "'+i+'"}\' >> /var/snap/microstack/common/etc/nova/nova.conf.d/nova-snap.conf')
 
 for i in id:
-    os.system('sudo echo \'\nalias = {"vendor_id":"10de","product_id":"'+i+'"," device_type":"type-PCI","name":"'+i+'"}\' >> /var/snap/microstack/common/etc/nova/nova.conf.d/nova-snap.conf')
+    os.system('sudo echo \'\nalias = {"vendor_id":"10de","product_id":"'+i+'","device_type":"type-PCI","name":"'+i+'"}\' >> /var/snap/microstack/common/etc/nova/nova.conf.d/nova-snap.conf')
 
 for idx, x in enumerate(idAudio):
-    os.system('sudo echo \'\nalias = {"vendor_id":"10de","product_id":"'+x+'"," device_type":"type-PCI","name":"'+id[idx]+'Audio"}\' >> /var/snap/microstack/common/etc/nova/nova.conf.d/nova-snap.conf')
+    os.system('sudo echo \'\nalias = {"vendor_id":"10de","product_id":"'+x+'","device_type":"type-PCI","name":"'+id[idx]+'Audio"}\' >> /var/snap/microstack/common/etc/nova/nova.conf.d/nova-snap.conf')
 
 os.remove('out.temp')
 os.remove('outAudio.temp')
