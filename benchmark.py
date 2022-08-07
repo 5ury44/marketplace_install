@@ -2,6 +2,10 @@ import sys
 import psutil
 import os
 
+os.system('rm benchmark.txt')
+os.system('rm network.txt')
+os.system('rm portAvail.txt')
+
 vmCount = input("Maximum VMs that will run on server?")
 portRange = input("Range of ports in 'xxxx-yyyy' format").split("-")
 portSkip = input("Enter reserved ports to skip over separated with commas").split(",")
