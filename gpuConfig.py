@@ -10,17 +10,18 @@ with open("out.temp") as f:
     for line in f:
         j = str(line).split(' ')
         for h in j:
-            if "10de" in j:
-                id.append(j.substring(6,j.length()-1))
-    
+            if "10de" in h:
+                id.append(h[6:int(len(h))-1])
+
 
 with open("out.temp") as f:
     for line in f:
         j = str(line).split(' ')
+
         for h in j:
-            if "10de" in j:
-                id.append(j.substring(6,j.length()-1))
-    
+            if "10de" in h:
+                id.append(h[6:int(len(h))-1])
+           # print(h)
 
 
 #todo delete repeats
