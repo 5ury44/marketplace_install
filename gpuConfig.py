@@ -7,16 +7,16 @@ os.system('lspci -nn | grep Audio |grep NVIDIA > outAudio.temp')
 id=[]
 idAudio=[]
 with open("out.temp") as f:
-    for i, line in f:
-        j = str(i).split(' ')
+    for line in f:
+        j = str(line).split(' ')
         for h in j:
             if "10de" in j:
                 id.append(j.substring(6,j.length()-1))
     
 
 with open("out.temp") as f:
-    for i, line in f:
-        j = str(i).split(' ')
+    for line in f:
+        j = str(line).split(' ')
         for h in j:
             if "10de" in j:
                 id.append(j.substring(6,j.length()-1))
