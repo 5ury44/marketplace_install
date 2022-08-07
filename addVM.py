@@ -25,14 +25,14 @@ with open('portAvail.txt') as file:
     os.system('sudo sysctl -w net.ipv4.ip_forward=1')
 
     os.system('microstack.openstack server list --name '+line1+' > outIP.temp')
-    fp = open("outIP.temp")
-    for i, line in enumerate(fp):
-        if i!=0:
-            j = i.split(' | ')
-            if '10' in j[3]:
-                ip=i.split(', ')[1]
-                os.system('sudo iptables -t nat -A PREROUTING -i '+args.device+' -p tcp --dport '+line1+' -j  DNAT --to-destination '+ip+':22')
-os.remove('outIP.temp')
+    with open("out.temp") as f:
+        for i in f:
+            if i!=0:
+                j = str(i).split(' | ')
+                if '10' in j[3]:
+                    ip=i.split(', ')[1]
+                    os.system('sudo iptables -t nat -A PREROUTING -i '+args.device+' -p tcp --dport '+line1+' -j  DNAT --to-destination '+ip+':22')
+    os.remove('outIP.temp')
         
 
 
