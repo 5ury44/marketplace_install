@@ -52,7 +52,7 @@ pip3 install psutil
 python3 benchmark.py
 python3 gpuConfig.py
 wget http://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img
-openstack image create --container-format bare --disk-format qcow2 --file focal-server-cloudimg-amd64.img ubuntu
+microstack.openstack image create --container-format bare --disk-format qcow2 --file focal-server-cloudimg-amd64.img ubuntu
 
 update-grub
 update-initramfs -u
