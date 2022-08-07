@@ -14,13 +14,13 @@ with open("out.temp") as f:
                 id.append(h[6:int(len(h))-1])
 
 
-with open("out.temp") as f:
+with open("outAudio.temp") as f:
     for line in f:
         j = str(line).split(' ')
 
         for h in j:
             if "10de" in h:
-                id.append(h[6:int(len(h))-1])
+                idAudio.append(h[6:int(len(h))-1])
            # print(h)
 
 
