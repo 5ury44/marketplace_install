@@ -22,7 +22,7 @@ with open('portAvail.txt') as file:
     print(line1)
     os.system('microstack.openstack flavor create '+'--vcpu '+args.virtualcpus+' --disk '+args.storage+' --ram '+args.ram+' --property "pci_passthrough:alias"="'+args.gputype+':'+args.gpucount+'" '+line1)
     os.system('microstack.openstack flavor set '+line1+' --property "pci_passthrough:alias"="'+args.gputype+'Audio:'+args.gpucount+'"')
-    os.system('microstack launch '+args.operatingsys+' --flavor '+line1+' -n '+line1)
+    os.system('microstack launch '+args.operatingsys+' --flavor '+line1+' --name '+line1)
    # os.system('sudo sysctl -w net.ipv4.ip_forward=1')
 
     os.system('microstack.openstack server list --name '+line1+' > outIP.temp')
