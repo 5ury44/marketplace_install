@@ -6,6 +6,7 @@ os.system('lspci -nn | grep VGA |grep NVIDIA > out.temp')
 os.system('lspci -nn | grep Audio |grep NVIDIA > outAudio.temp')
 id=[]
 idAudio=[]
+whitelist = "passthrough_whitelist = ["
 with open("out.temp") as f:
     for line in f:
         j = str(line).split(' ')
@@ -29,7 +30,11 @@ with open("outAudio.temp") as f:
 os.system('sudo echo \'\n[pci]\' >> /var/snap/microstack/common/etc/nova/nova.conf.d/nova-snap.conf')
 
 for i in id:
-    os.system('sudo echo \'\npassthrough_whitelist = {"vendor_id": "10de", "product_id": "'+i+'"}\' >> /var/snap/microstack/common/etc/nova/nova.conf.d/nova-snap.conf')
+    whitelist+='{"vendor_id": "10de", "product_id": "'+i+'"},'
+    #os.system('sudo echo \'\npassthrough_whitelist = {"vendor_id": "10de", "product_id": "'+i+'"}\' >> /var/snap/microstack/common/etc/nova/nova.conf.d/nova-snap.conf')
+
+whitelist+=']'
+os.system('sudo echo \'\n'+whitelist+'\' >> /var/snap/microstack/common/etc/nova/nova.conf.d/nova-snap.conf')
 
 for i in idAudio:
     os.system('sudo echo \'\npassthrough_whitelist = {"vendor_id": "10de", "product_id": "'+i+'"}\' >> /var/snap/microstack/common/etc/nova/nova.conf.d/nova-snap.conf')
