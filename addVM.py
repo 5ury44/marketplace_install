@@ -13,7 +13,6 @@ parser.add_argument("-r","--ram", default="0", help="Number of Virtual CPUs in m
 parser.add_argument("-os","--operatingsys", default="ubuntu", help="Number of Virtual CPUs in machine")
 parser.add_argument("-g","--gputype", default="", help="Number of Virtual CPUs in machine")
 parser.add_argument("-c","--gpucount", default="0", help="Number of Virtual CPUs in machine")
-parser.add_argument("-d","--device", default="eth0", help="Number of Virtual CPUs in machine")
 parser.add_argument("-p","--port", default="0", help="Number of Virtual CPUs in machine")
 
 args = parser.parse_args()
@@ -34,5 +33,7 @@ with open('portAvail.txt') as file:
                 j = str(i).split(' | ')
                 if '10' in j[3]:
                     ip=i.split(', ')[1]
-                    os.system('sudo iptables -t nat -A PREROUTING -i '+args.device+' -p tcp --dport '+line1+' -j  DNAT --to-destination '+ip+':22')
+                    with open('myfile.txt') as f:
+                        eth = f.readline()
+                        os.system('sudo iptables -t nat -A PREROUTING -i '+eth+' -p tcp --dport '+line1+' -j  DNAT --to-destination '+ip+':22')
     os.remove('outIP.temp')
