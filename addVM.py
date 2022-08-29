@@ -14,11 +14,13 @@ parser.add_argument("-os","--operatingsys", default="ubuntu", help="Number of Vi
 parser.add_argument("-g","--gputype", default="", help="Number of Virtual CPUs in machine")
 parser.add_argument("-c","--gpucount", default="0", help="Number of Virtual CPUs in machine")
 parser.add_argument("-d","--device", default="eth0", help="Number of Virtual CPUs in machine")
+parser.add_argument("-p","--port", default="0", help="Number of Virtual CPUs in machine")
 
 args = parser.parse_args()
 
 with open('portAvail.txt') as file:
-    line1 = file.readline()
+    #line1 = file.readline()
+    line1 = args.port
     print(line1)
     os.system('microstack.openstack flavor create '+'--vcpu '+args.virtualcpus+' --disk '+args.storage+' --ram '+args.ram+' --property "pci_passthrough:alias"="'+args.gputype+':'+args.gpucount+'" '+line1)
     os.system('microstack.openstack flavor set '+line1+' --property "pci_passthrough:alias"="'+args.gputype+'Audio:'+args.gpucount+'"')
@@ -32,12 +34,5 @@ with open('portAvail.txt') as file:
                 j = str(i).split(' | ')
                 if '10' in j[3]:
                     ip=i.split(', ')[1]
-                   # os.system('sudo iptables -t nat -A PREROUTING -i '+args.device+' -p tcp --dport '+line1+' -j  DNAT --to-destination '+ip+':22')
+                    os.system('sudo iptables -t nat -A PREROUTING -i '+args.device+' -p tcp --dport '+line1+' -j  DNAT --to-destination '+ip+':22')
     os.remove('outIP.temp')
-
-
-
-with open('portAvail.txt', 'r') as fin:
-    data = fin.read().splitlines(True)
-with open('portAvail.txt', 'w') as fout:
-    fout.writelines(data[1:])
