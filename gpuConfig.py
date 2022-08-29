@@ -33,11 +33,12 @@ for i in id:
     whitelist+='{"vendor_id": "10de", "product_id": "'+i+'"},'
     #os.system('sudo echo \'\npassthrough_whitelist = {"vendor_id": "10de", "product_id": "'+i+'"}\' >> /var/snap/microstack/common/etc/nova/nova.conf.d/nova-snap.conf')
 
+for i in idAudio:
+    whitelist+='{"vendor_id": "10de", "product_id": "'+i+'"},'
+    #os.system('sudo echo \'\npassthrough_whitelist = {"vendor_id": "10de", "product_id": "'+i+'"}\' >> /var/snap/microstack/common/etc/nova/nova.conf.d/nova-snap.conf')
+
 whitelist+=']'
 os.system('sudo echo \'\n'+whitelist+'\' >> /var/snap/microstack/common/etc/nova/nova.conf.d/nova-snap.conf')
-
-for i in idAudio:
-    os.system('sudo echo \'\npassthrough_whitelist = {"vendor_id": "10de", "product_id": "'+i+'"}\' >> /var/snap/microstack/common/etc/nova/nova.conf.d/nova-snap.conf')
 
 for i in id:
     os.system('sudo echo \'\nalias = {"vendor_id":"10de","product_id":"'+i+'","device_type":"type-PCI","name":"'+i+'"}\' >> /var/snap/microstack/common/etc/nova/nova.conf.d/nova-snap.conf')
