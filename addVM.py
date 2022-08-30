@@ -19,29 +19,28 @@ parser.add_argument("-n","--name", default="", help="Number of Virtual CPUs in m
 
 args = parser.parse_args()
 
-with open('portAvail.txt') as file:
     
-    #line1 = file.readline()
-    line1 = args.name
-    print(line1)
-    os.system('microstack.openstack flavor create '+'--vcpu '+args.virtualcpus+' --disk '+args.storage+' --ram '+args.ram+' --property "pci_passthrough:alias"="'+args.gputype+':'+args.gpucount+'" '+line1)
-    os.system('microstack.openstack flavor set '+line1+' --property "pci_passthrough:alias"="'+args.gputype+'Audio:'+args.gpucount+'"')
-    os.system('microstack launch '+args.operatingsys+' --flavor '+line1+' --name '+line1)
+#line1 = file.readline()
+line1 = args.name
+print(line1)
+os.system('microstack.openstack flavor create '+'--vcpu '+args.virtualcpus+' --disk '+args.storage+' --ram '+args.ram+' --property "pci_passthrough:alias"="'+args.gputype+':'+args.gpucount+'" '+line1)
+os.system('microstack.openstack flavor set '+line1+' --property "pci_passthrough:alias"="'+args.gputype+'Audio:'+args.gpucount+'"')
+os.system('microstack launch '+args.operatingsys+' --flavor '+line1+' --name '+line1)
    # os.system('sudo sysctl -w net.ipv4.ip_forward=1')
 
 
 
-    os.system('microstack.openstack server list --name '+line1+' > outIP.temp')
-    with open("outIP.temp") as f:
-        for i in f:
-            if i!=0:
-                j = str(i).split(' | ')
-                if '10' in j[3]:
-                    ip=i.split(', ')[1]
-                    with open('myfile.txt') as f:
-                        eth = f.readline()
-                        ports=str(args.ports).split(',')
-                        for port in ports:
-                            portOutIn = port.split(':')
-                            os.system('sudo iptables -t nat -A PREROUTING -i '+eth+' -p tcp --dport '+portOutIn[0]+' -j  DNAT --to-destination '+ip+':'+portOutIn[1])
-    os.remove('outIP.temp')
+os.system('microstack.openstack server list --name '+line1+' > outIP.temp')
+with open("outIP.temp") as f:
+    for i in f:
+        if i!=0:
+            j = str(i).split(' | ')
+            if '10' in j[3]:
+                ip=i.split(', ')[1]
+                with open('myfile.txt') as f:
+                    eth = f.readline()
+                    ports=str(args.ports).split(',')
+                    for port in ports:
+                        portOutIn = port.split(':')
+                        os.system('sudo iptables -t nat -A PREROUTING -i '+eth+' -p tcp --dport '+portOutIn[0]+' -j  DNAT --to-destination '+ip+':'+portOutIn[1])
+os.remove('outIP.temp')
