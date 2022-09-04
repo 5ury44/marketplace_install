@@ -41,12 +41,14 @@ os.system('microstack.openstack server create --flavor '+line1+' --image '+args.
 
 
 os.system('microstack.openstack server list --name '+line1+' > outIP.temp')
+count = 0
 with open("outIP.temp") as f:
     for i in f:
-        if i!=0:
+        if count==3:
             j = str(i).split(' | ')
             if '10' in j[3]:
-                ip=i.split(', ')[1]
+                ipstr=i.split(', ')[1]
+                ip=ipstr.split(' |')[0]
                 with open('myfile.txt') as f:
                     eth = f.readline()
                     ports=str(args.ports).split(',')
