@@ -49,7 +49,7 @@ with open("outIP.temp") as f:
             if '10' in j[3]:
                 ipstr=i.split(', ')[1]
                 ip=ipstr.split(' |')[0]
-                with open('myfile.txt') as f:
+                with open('network.txt') as f:
                     eth = f.readline()
                     ports=str(args.ports).split(',')
                     for port in ports:
