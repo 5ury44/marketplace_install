@@ -15,6 +15,7 @@ parser.add_argument("-g","--gputype", default="", help="Number of Virtual CPUs i
 parser.add_argument("-c","--gpucount", default="0", help="Number of Virtual CPUs in machine")
 parser.add_argument("-p","--ports", default="0", help="Number of Virtual CPUs in machine")
 parser.add_argument("-n","--name", default="", help="Number of Virtual CPUs in machine")
+parser.add_argument("-ps","--password", default="pass", help="Number of Virtual CPUs in machine")
 
 
 args = parser.parse_args()
@@ -24,8 +25,17 @@ args = parser.parse_args()
 line1 = args.name
 print(line1)
 os.system('microstack.openstack flavor create '+'--vcpu '+args.virtualcpus+' --disk '+args.storage+' --ram '+args.ram+' --property "pci_passthrough:alias"="'+args.gputype+':'+args.gpucount+'" '+line1)
+
 os.system('microstack.openstack flavor set '+line1+' --property "pci_passthrough:alias"="'+args.gputype+'Audio:'+args.gpucount+'"')
-os.system('microstack launch '+args.operatingsys+' --flavor '+line1+' --name '+line1)
+#os.system('microstack launch '+args.operatingsys+' --flavor '+line1+' --name '+line1)
+with open(line1+'.txt', 'w') as bench:
+    bench.write("#cloud-config \n")
+    bench.write("user: tensordock \n")
+    bench.write("password: "+args.password+" \n")
+    bench.write("chpasswd: {expire: False} \n")
+    bench.write("ssh_pwauth: True \n")
+
+os.system('microstack.openstack server create --flavor '+line1+' --image '+args.operatingsys+' --network test --user-data '+line1+'.txt '+line1)
    # os.system('sudo sysctl -w net.ipv4.ip_forward=1')
 
 

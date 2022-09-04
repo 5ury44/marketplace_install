@@ -51,10 +51,13 @@ sudo apt install python3-pip
 pip3 install psutil
 python3 benchmark.py
 python3 gpuConfig.py
-wget http://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img
-wget https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd64.img
-microstack.openstack image create --container-format bare --disk-format qcow2 --file bionic-server-cloudimg-amd64.img ubuntu18
-microstack.openstack image create --container-format bare --disk-format qcow2 --file focal-server-cloudimg-amd64.img ubuntu20
+#wget http://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img
+#wget https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd64.img
+wget https://tensordock.nyc3.digitaloceanspaces.com/templates/ubuntu1804-20220727-lga1.qcow2
+wget https://tensordock.nyc3.digitaloceanspaces.com/templates/ubuntu2004-20220727-lga1.qcow2
+
+microstack.openstack image create --container-format bare --disk-format qcow2 --file ubuntu1804-20220727-lga1.qcow2 ubuntu18_04
+microstack.openstack image create --container-format bare --disk-format qcow2 --file ubuntu2004-20220727-lga1.qcow2 ubuntu20_04
 
 update-grub
 update-initramfs -u

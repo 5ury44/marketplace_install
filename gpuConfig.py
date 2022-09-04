@@ -36,7 +36,7 @@ for i in id:
 for i in idAudio:
     whitelist+='{"vendor_id": "10de", "product_id": "'+i+'"},'
     #os.system('sudo echo \'\npassthrough_whitelist = {"vendor_id": "10de", "product_id": "'+i+'"}\' >> /var/snap/microstack/common/etc/nova/nova.conf.d/nova-snap.conf')
-
+whitelist = whitelist[:-1]
 whitelist+=']'
 os.system('sudo echo \'\n'+whitelist+'\' >> /var/snap/microstack/common/etc/nova/nova.conf.d/nova-snap.conf')
 
