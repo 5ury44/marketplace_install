@@ -35,7 +35,7 @@ with open(line1+'.txt', 'w') as bench:
     bench.write("chpasswd: {expire: False} \n")
     bench.write("ssh_pwauth: True \n")
 
-os.system('microstack.openstack server create --flavor '+line1+' --image '+args.operatingsys+' --network external --user-data '+line1+'.txt '+line1)
+os.system('microstack.openstack server create --flavor '+line1+' --image '+args.operatingsys+' --network external --network test --user-data '+line1+'.txt '+line1)
    # os.system('sudo sysctl -w net.ipv4.ip_forward=1')
 
 
